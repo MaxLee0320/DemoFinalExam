@@ -18,16 +18,55 @@ public class CES extends Student {
 
 	private static ArrayList<Student> list ;
 	
-	private static void ReadFile (String filepath) {
-		/*
-		 * Your Work !
-		 * */
-	}
+	
 	
 	private static void WriteFile (ArrayList<Student> list, String filepath) {
-		/*
-		 * Your Work !
-		 * */
+		
+        /*
+		 *  Your Work !
+		 */
+		
+        FileWriter fileWriter = null;
+        PrintWriter printWriter = null;
+        String record = "";
+        
+        try {
+			fileWriter = new FileWriter(filepath);
+			printWriter = new PrintWriter(fileWriter);
+	        
+	        Iterator<Student> it = list.iterator();
+	        while (it.hasNext()) {
+	        	Student s = it.next();
+	        	record = "";
+	        	record = s.getId()   + " " + 
+	        	         s.getName() + " " + 
+	        			 s.getChi()  + " " + 
+	        	         s.getEng()  + " " + 
+	        			 s.getMath() + " " +
+	        	         s.mAvg ;
+	        	
+	        	printWriter.println(record);
+			}
+	        
+		} catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            
+        	if (printWriter != null) {
+                printWriter.close();
+            }
+            
+            if (fileWriter != null) {
+                try {
+                    fileWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
 	}
 	
 	private static void ScoreEnrollment () {
@@ -57,24 +96,6 @@ public class CES extends Student {
 			
 		}
 		WriteFile(list, "src/score.txt");
-		
-	}
-	
-	private static void InqueryByIDFromFile (String filepath) {
-		int id;
-		System.out.println("Enter ID :");
-		id = new Scanner(System.in).nextInt();
-		
-		ReadFile(filepath);
-
-		Iterator<Student> it = list.iterator();
-		while (it.hasNext()) {
-			Student s = it.next();
-			if (s.getId() == id) {
-				System.out.println("Name: " + s.getName() + " " + "Avg: " + s.mAvg);
-			}
-		}
-		System.out.println("*************************");
 	}
 	
 	private static void InqueryByID () {
@@ -140,8 +161,7 @@ public class CES extends Student {
 				ScoreEnrollment ();
 				break;
 			case 2:
-				//InqueryByID ();
-				InqueryByIDFromFile("src/score.txt");
+				InqueryByID ();
 				break;
 			case 3:
 				ListByScore ();
