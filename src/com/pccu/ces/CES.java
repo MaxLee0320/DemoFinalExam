@@ -18,13 +18,17 @@ public class CES extends Student {
 
 	private static ArrayList<Student> list ;
 	
-	
+	private static ArrayList<Student> ReadFile (String filepath) {
+		Scanner scanner = null;
+		
+		/**
+		 *  Your Read File Work
+		 */
+		
+		return list;
+	}
 	
 	private static void WriteFile (ArrayList<Student> list, String filepath) {
-		
-        /*
-		 *  Your Work !
-		 */
 		
         FileWriter fileWriter = null;
         PrintWriter printWriter = null;
@@ -66,7 +70,6 @@ public class CES extends Student {
                 }
             }
         }
-
 	}
 	
 	private static void ScoreEnrollment () {
@@ -96,6 +99,24 @@ public class CES extends Student {
 			
 		}
 		WriteFile(list, "src/score.txt");
+		
+	}
+	
+	
+	private static void InqueryByIDFromFile (String filepath) {
+		int id;
+		System.out.println("Enter ID :");
+		id = new Scanner(System.in).nextInt();
+		list=ReadFile(filepath);
+		
+		Iterator<Student> it = list.iterator();
+		while (it.hasNext()) {
+			Student s = it.next();
+			if (s.getId() == id) {
+				System.out.println("Name: " + s.getName() + " " + "Avg: " + s.mAvg);
+			}
+		}
+		System.out.println("*************************");
 	}
 	
 	private static void InqueryByID () {
@@ -161,7 +182,8 @@ public class CES extends Student {
 				ScoreEnrollment ();
 				break;
 			case 2:
-				InqueryByID ();
+				//InqueryByID ();
+				InqueryByIDFromFile("src/score.txt");
 				break;
 			case 3:
 				ListByScore ();
